@@ -1,0 +1,41 @@
+{
+    "name": "shimoning/laravel-utilities",
+    "description": "Utilities for Laravel",
+    "minimum-stability": "dev",
+    "type": "library",
+    "version": "0.0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shimon Haga",
+            "email": "shimon.haga@shimoning.com",
+            "homepage": "https://shimoning.com"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "utility",
+        "seeder",
+        "validation",
+        "rule",
+        "hiragana",
+        "katakana"
+    ],
+    "require": {
+        "php": "^5.6 || ^7.3 || ^8.0",
+        "illuminate/database": "5.8.* || ^6 || ^7 || ^8",
+        "illuminate/validation": "5.8.* || ^6 || ^7 || ^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shimoning\\LaravelUtilities\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shimoning\\LaravelUtilities\\UtilityServiceProvider"
+            ]
+        }
+    }
+}

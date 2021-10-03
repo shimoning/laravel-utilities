@@ -15,16 +15,12 @@ Packagist には登録してないので、 `LaravelUtilities.php` をDLなり�
         "url": "https://github.com/shimoning/laravel-utilities.git"
     }
 },
-
-"require": {
-    "shimoning/laravel-utilities": "^0.1.0"
-},
 ```
 
 その後以下でインストールする。
 
 ```bash
-composer update shimoning/laravel-utilities
+composer require shimoning/laravel-utilities
 ```
 
 ## Caution
@@ -70,6 +66,10 @@ PHP 5.6 以上。
 #### Time
 時間
 
+## 翻訳ファイルのカスタマイズ
+```sh
+php artisan vendor:publish --provider="Shimoning\LaravelUtilities\ServiceProvider" --tag=translation
+```
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)

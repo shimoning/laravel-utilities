@@ -35,6 +35,6 @@ class AlphaDash implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.alpha_dash');
+        return trans('laravel-utilities::validation.alpha_dash');
     }
 }

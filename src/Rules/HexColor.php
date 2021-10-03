@@ -83,6 +83,6 @@ class HexColor implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.hex-color');
+        return trans('laravel-utilities::validation.hex-color');
     }
 }

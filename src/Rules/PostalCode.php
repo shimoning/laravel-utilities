@@ -35,6 +35,6 @@ class PostalCode implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.postal_code');
+        return trans('laravel-utilities::validation.postal_code');
     }
 }

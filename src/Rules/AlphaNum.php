@@ -35,6 +35,6 @@ class AlphaNum implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.alpha_num');
+        return trans('laravel-utilities::validation.alpha_num');
     }
 }

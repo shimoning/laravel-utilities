@@ -39,6 +39,6 @@ class Katakana implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.katakana');
+        return trans('laravel-utilities::validation.katakana');
     }
 }

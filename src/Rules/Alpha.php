@@ -35,6 +35,6 @@ class Alpha implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.alpha');
+        return trans('laravel-utilities::validation.alpha');
     }
 }

@@ -35,6 +35,6 @@ class PhoneNumber implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.phone_number');
+        return trans('laravel-utilities::validation.phone_number');
     }
 }

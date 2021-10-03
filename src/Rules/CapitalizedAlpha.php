@@ -35,6 +35,6 @@ class CapitalizedAlpha implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.capitalized_alpha');
+        return trans('laravel-utilities::validation.capitalized_alpha');
     }
 }

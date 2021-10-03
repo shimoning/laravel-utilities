@@ -42,7 +42,7 @@ class Time implements Rule
     public function message()
     {
         return $this->allowOver24
-            ? trans('shimoning-validation.time_over_24')
-            : trans('shimoning-validation.time');
+            ? trans('laravel-utilities::validation.time_over_24')
+            : trans('laravel-utilities::validation.time');
     }
 }

@@ -39,6 +39,6 @@ class Hiragana implements Rule
      */
     public function message()
     {
-        return trans('shimoning-validation.hiragana');
+        return trans('laravel-utilities::validation.hiragana');
     }
 }

@@ -3,9 +3,6 @@ Laravel 用の便利クラス
 
 ## Install
 
-### 通常
-Packagist には登録してないので、 `LaravelUtilities.php` をDLなりコピペして好きなところに置く。
-
 ### composer で追加する
 利用するプロジェクトの `composer.json` に以下を追加する。
 ```composer.json

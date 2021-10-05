@@ -11,7 +11,7 @@ trait AskWithValidationTrait
     ): string {
         $input = $this->command->ask($question, $default);
         if (! $validator($input)) {
-            $this->command->error('Input invalid. [ input = ' . $input ?? 'null' . ' ]');
+            $this->command->error('Input invalid. [ input = ' . ($input ?? 'null') . ' ]');
             return $this->askWithValidation($question, $validator, $default);
         }
 

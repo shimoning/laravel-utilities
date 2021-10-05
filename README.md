@@ -23,12 +23,15 @@ composer require shimoning/laravel-utilities
 ## Caution
 Laravel がないと動きません。
 バージョンは 5.8 以上で動くと思われるが、他のバージョンについては確認中。
-PHP 5.6 以上。
+PHP は 7.1 以上。
 
 ## Usage
 
 ### Seeders
 記述予定...
+
+### AskWithValidationTrait
+`php artisan db:seed` 実行時に引数を受け取る時にバリデーションを行う関数を提供する。
 
 ### Rules
 記述予定...

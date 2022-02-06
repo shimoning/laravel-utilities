@@ -4,16 +4,45 @@ namespace Shimoning\LaravelUtilities\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
+// TODO: implement without city code mode
 class PhoneNumber implements Rule
 {
     /**
-     * Create a new rule instance.
+     * 国番号付き
      *
+     * @var boolean
+     */
+    public $withCountryCode = false;
+
+    /**
+     * ハイフン必須
+     *
+     * @var boolean
+     */
+    public $hyphenRequired = false;
+
+    /**
+     * ハイフン禁止
+     *
+     * @var boolean
+     */
+    public $hyphenIgnored = false;
+
+    /**
+     * @param array|null
      * @return void
      */
-    public function __construct()
+    public function __construct($options = null)
     {
-        //
+        if (isset($options['withCountryCode'])) {
+            $this->withCountryCode = (bool)$options['withCountryCode'];
+        }
+        if (isset($options['hyphenRequired'])) {
+            $this->hyphenRequired = (bool)$options['hyphenRequired'];
+        }
+        if (isset($options['hyphenIgnored'])) {
+            $this->hyphenIgnored = (bool)$options['hyphenIgnored'];
+        }
     }
 
     /**
@@ -25,7 +54,18 @@ class PhoneNumber implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^(\+\d{1,4})?0\d{1,4}-?\d{1,4}-?\d{3,4}$/', $value);
+        $prefix = $this->withCountryCode
+            ? '(\+\d{1,4})'
+            : '0';
+
+        $hyphen = '-?';
+        if ($this->hyphenRequired) {
+            $hyphen = '-';
+        } else if ($this->hyphenIgnored) {
+            $hyphen = '';
+        }
+
+        return preg_match('/^' . $prefix . '[1-9]\d{0,3}' . $hyphen . '\d{1,4}' . $hyphen . '\d{3,4}$/', $value);
     }
 
     /**

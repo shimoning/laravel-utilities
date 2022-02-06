@@ -6,17 +6,21 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Katakana implements Rule
 {
+    /**
+     * 半角スペース全角スペースを受け付ける
+     *
+     * @var bool
+     */
     public $withSpace = false;
 
     /**
-     * Create a new rule instance.
-     *
+     * @param array|null
      * @return void
      */
     public function __construct($options = null)
     {
-        if ($options) {
-            $this->withSpace = !empty($options['withSpace']);
+        if (isset($options['withSpace'])) {
+            $this->withSpace = (bool)$options['withSpace'];
         }
     }
 

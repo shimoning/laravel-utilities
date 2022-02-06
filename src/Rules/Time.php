@@ -6,17 +6,41 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Time implements Rule
 {
+    /**
+     * 24時間を超える時間フォーマットを許容するかどうか
+     *
+     * @var bool
+     */
     public $allowOver24 = false;
 
     /**
-     * Create a new rule instance.
+     * 秒を必須とする
      *
+     * @var bool
+     */
+    public $secondRequired = false;
+
+    /**
+     * 秒を禁止する
+     *
+     * @var bool
+     */
+    public $secondIgnored = false;
+
+    /**
+     * @param array|null
      * @return void
      */
     public function __construct($options = null)
     {
-        if ($options) {
-            $this->allowOver24 = !empty($options['allowOver24']);
+        if (isset($options['allowOver24'])) {
+            $this->allowOver24 = (bool)$options['allowOver24'];
+        }
+        if (isset($options['secondRequired'])) {
+            $this->secondRequired = (bool)$options['secondRequired'];
+        }
+        if (isset($options['secondIgnored'])) {
+            $this->secondIgnored = (bool)$options['secondIgnored'];
         }
     }
 
@@ -29,9 +53,18 @@ class Time implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->allowOver24
-            ? preg_match('/^(\d+):([0-5]?[0-9])(:[0-5]?[0-9])?$/', $value)
-            : preg_match('/^([01]?[0-9]|2[0-3]):([0-5]?[0-9])(:[0-5]?[0-9])?$/', $value);
+        $hour = $this->allowOver24
+            ? '(\d+):'
+            : '([01]?[0-9]|2[0-3]):';
+
+        $second = '(:[0-5]?[0-9])?';
+        if ($this->secondRequired) {
+            $second = ':([0-5]?[0-9])';
+        } else if ($this->secondIgnored) {
+            $second = '';
+        }
+
+        return preg_match('/^' . $hour . '([0-5]?[0-9])' . $second . '$/', $value);
     }
 
     /**

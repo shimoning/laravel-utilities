@@ -7,13 +7,31 @@ use Illuminate\Contracts\Validation\Rule;
 class PostalCode implements Rule
 {
     /**
-     * Create a new rule instance.
+     * ハイフン必須
      *
+     * @var boolean
+     */
+    public $hyphenRequired = false;
+
+    /**
+     * ハイフン禁止
+     *
+     * @var boolean
+     */
+    public $hyphenIgnored = false;
+
+    /**
+     * @param array|null
      * @return void
      */
-    public function __construct()
+    public function __construct($options = null)
     {
-        //
+        if (isset($options['hyphenRequired'])) {
+            $this->hyphenRequired = (bool)$options['hyphenRequired'];
+        }
+        if (isset($options['hyphenIgnored'])) {
+            $this->hyphenIgnored = (bool)$options['hyphenIgnored'];
+        }
     }
 
     /**
@@ -25,7 +43,14 @@ class PostalCode implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^\d{3}-?\d{4}$/', $value);
+        $hyphen = '-?';
+        if ($this->hyphenRequired) {
+            $hyphen = '-';
+        } else if ($this->hyphenIgnored) {
+            $hyphen = '';
+        }
+
+        return preg_match('/^\d{3}' . $hyphen . '\d{4}$/', $value);
     }
 
     /**

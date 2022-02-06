@@ -6,38 +6,37 @@ use Illuminate\Contracts\Validation\Rule;
 
 class HexColor implements Rule
 {
+    const BASE_REGEX = '[a-fA-F0-9]';
+    const LONG_REGEX = self::BASE_REGEX . '{6}';
+    const SHORT_REGEX = self::BASE_REGEX . '{3}';
+    const HASH = '#';
+
     /**
      * 先頭に # をつける
      *
-     * @var boolean
+     * @var bool
      */
     public $withHash = true;
 
     /**
      * rrggbb を受け付ける
      *
-     * @var boolean
+     * @var bool
      */
     public $allowLong = true;
 
     /**
      * rgb を受け付ける
      *
-     * @var boolean
+     * @var bool
      */
     public $allowShort = true;
 
-    const BASE_REGEX = '[a-zA-Z0-9]';
-    const LONG_REGEX = self::BASE_REGEX + '{6}';
-    const SHORT_REGEX = self::BASE_REGEX + '{3}';
-    const HASH = '#';
-
     /**
-     * Create a new rule instance.
-     *
+     * @param array|null
      * @return void
      */
-    public function __construct($options)
+    public function __construct($options = null)
     {
         if (isset($options['withHash'])) {
             $this->withHash = (bool)$options['withHash'];

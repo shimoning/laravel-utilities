@@ -28,13 +28,13 @@ PHP は 7.1 以上。
 ## Usage
 
 ### Seeders
-記述予定...
+todo: 記述予定...
 
 ### AskWithValidationTrait
 `php artisan db:seed` 実行時に引数を受け取る時にバリデーションを行う関数を提供する。
 
 ### Rules
-記述予定...
+todo: 記述予定...
 
 #### Alpha
 半角英字。デフォルトのだとマルチバイトも通るので。
@@ -68,7 +68,12 @@ PHP は 7.1 以上。
 
 ## 翻訳ファイルのカスタマイズ
 ```sh
-php artisan vendor:publish --provider="Shimoning\LaravelUtilities\ServiceProvider" --tag=translation
+php artisan vendor:publish --provider="Shimoning\LaravelUtilities\UtilityServiceProvider" --tag=translation
+```
+
+## 設定ファイルのカスタマイズ
+```sh
+php artisan vendor:publish --provider="Shimoning\LaravelUtilities\UtilityServiceProvider" --tag=config
 ```
 
 ## License

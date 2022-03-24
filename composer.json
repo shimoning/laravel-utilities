@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "license": "MIT",
     "authors": [
         {
@@ -26,7 +26,7 @@
         "illuminate/database": "5.8.* || ^6 || ^7 || ^8",
         "illuminate/support": "5.8.* || ^6 || ^7 || ^8",
         "illuminate/validation": "5.8.* || ^6 || ^7 || ^8",
-        "hashids/hashids": "^4.1"
+        "hashids/hashids": "^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7 | ^8 | ^9"

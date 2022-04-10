@@ -12,4 +12,5 @@ return [
     'postal_code' => 'The :attribute must be a valid postal code.',
     'time' => ':attribute is not a valid time.',
     'time_over_24' => ':attribute is not a valid time.',
+    'boolean' => 'The :attribute field must be true or false.',
 ];

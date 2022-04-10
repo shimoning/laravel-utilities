@@ -12,4 +12,5 @@ return [
     'postal_code' => ':attribute は正しい書式の郵便番号を入力してください。',
     'time' => ':attribute は、数字とコロンのみを含む時間を24時間未満で入力してください。',
     'time_over_24' => ':attribute は、数字とコロンのみを含む時間を入力してください。',
+    'boolean' => ':attribute には真偽値を入力してください。',
 ];

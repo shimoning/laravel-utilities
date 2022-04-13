@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'database_logging' => env('DATABASE_LOGGING', false),
+    'db_logging' => env('DB_LOGGING', false),
+
+    'mail_logging' => env('MAIL_LOGGING', false),
 ];

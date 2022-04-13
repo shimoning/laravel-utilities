@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Database\Events\TransactionCommitted;
 use Illuminate\Database\Events\TransactionRolledBack;
+use Illuminate\Mail\Events\MessageSent;
+
+use Shimoning\LaravelUtilities\Listeners\MailLogger;
 
 class UtilityServiceProvider extends ServiceProvider
 {
@@ -36,7 +39,7 @@ class UtilityServiceProvider extends ServiceProvider
         $this->bootTranslation();
 
         // Logging DB
-        if (config('laravel-utilities.database_logging', true)) {
+        if (config('laravel-utilities.db_logging', true)) {
             // Query
             DB::listen(function ($query) {
                 Log::info("Query Time:{$query->time}s] $query->sql", $query->bindings);
@@ -52,6 +55,11 @@ class UtilityServiceProvider extends ServiceProvider
             Event::listen(TransactionRolledBack::class, function ($event) {
                 Log::info("DB: {$event->connectionName}] DB::rollBack()");
             });
+        }
+
+        // Logging Mail
+        if (config('laravel-utilities.mail_logging', true)) {
+            Event::listen(MessageSent::class, MailLogger::class);
         }
     }
 

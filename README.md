@@ -30,7 +30,7 @@ PHP は 7.1 以上。
 ### Seeders
 todo: 記述予定...
 
-### AskWithValidationTrait
+#### AskWithValidationTrait
 `php artisan db:seed` 実行時に引数を受け取る時にバリデーションを行う関数を提供する。
 
 ### Rules
@@ -65,6 +65,14 @@ todo: 記述予定...
 
 #### Time
 時間
+
+## Logger
+### Database
+.env に `DB_LOGGING` を true で設定すると、デフォルトのログチャンネルにログを残す。
+
+### Mail
+.env に `MAIL_LOGGING` を true で設定すると、デフォルトのログチャンネルにログを残す。
+
 
 ## 翻訳ファイルのカスタマイズ
 ```sh

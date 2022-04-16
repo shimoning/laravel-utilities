@@ -33,6 +33,8 @@ class MailLogger
         $toAddresses = collect($message->getTo())->keys();
         $fromAddresses = collect($message->getFrom())->keys();
         $subject = $message->getSubject();
-        Log::info("Mail sent to {$toAddresses} from {$fromAddresses}, subject: {$subject}");
+
+        Log::channel(config('laravel-utilities.mail_logging_channel'))
+            ->info("Mail sent to {$toAddresses} from {$fromAddresses}, subject: {$subject}");
     }
 }

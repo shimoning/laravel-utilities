@@ -4,8 +4,8 @@ namespace Shimoning\LaravelUtilities;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Database\Events\TransactionCommitted;
 use Illuminate\Database\Events\TransactionRolledBack;
@@ -40,20 +40,22 @@ class UtilityServiceProvider extends ServiceProvider
 
         // Logging DB
         if (config('laravel-utilities.db_logging', true)) {
+            $channel = config('laravel-utilities.db_logging_channel');
+
             // Query
-            DB::listen(function ($query) {
-                Log::info("Query Time:{$query->time}s] $query->sql", $query->bindings);
+            Event::listen(QueryExecuted::class, function ($event) use ($channel) {
+                Log::channel($channel)->info("Query Time: {$event->time}s] $event->sql", $event->bindings);
             });
 
             // Transaction
-            Event::listen(TransactionBeginning::class, function ($event) {
-                Log::info("DB: {$event->connectionName}] DB::beginTransaction()");
+            Event::listen(TransactionBeginning::class, function ($event) use ($channel) {
+                Log::channel($channel)->info("DB: {$event->connectionName}] DB::beginTransaction()");
             });
-            Event::listen(TransactionCommitted::class, function ($event) {
-                Log::info("DB: {$event->connectionName}] DB::commit()");
+            Event::listen(TransactionCommitted::class, function ($event) use ($channel) {
+                Log::channel($channel)->info("DB: {$event->connectionName}] DB::commit()");
             });
-            Event::listen(TransactionRolledBack::class, function ($event) {
-                Log::info("DB: {$event->connectionName}] DB::rollBack()");
+            Event::listen(TransactionRolledBack::class, function ($event) use ($channel) {
+                Log::channel($channel)->info("DB: {$event->connectionName}] DB::rollBack()");
             });
         }
 

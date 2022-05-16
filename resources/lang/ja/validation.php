@@ -13,4 +13,5 @@ return [
     'time' => ':attribute は、数字とコロンのみを含む時間を24時間未満で入力してください。',
     'time_over_24' => ':attribute は、数字とコロンのみを含む時間を入力してください。',
     'boolean' => ':attribute には真偽値を入力してください。',
+    'joined-array' => ':attribute には文字で区切られた配列を入力してください。',
 ];

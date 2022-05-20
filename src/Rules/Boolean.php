@@ -3,9 +3,12 @@
 namespace Shimoning\LaravelUtilities\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Shimoning\LaravelUtilities\Traits\BooleanTrait;
 
 class Boolean implements Rule
 {
+    use BooleanTrait;
+
     /**
      * Determine if the validation rule passes.
      *
@@ -15,7 +18,7 @@ class Boolean implements Rule
      */
     public function passes($attribute, $value)
     {
-        return ! \is_null(\filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE));
+        return ! \is_null($this->toBoolean($value));
     }
 
     /**

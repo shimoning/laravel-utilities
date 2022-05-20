@@ -10,7 +10,7 @@ trait AskWithValidationTrait
      * @param string $question
      * @param callable $validator
      * @param string|int|null $default
-     * @return void
+     * @return string|int|null
      */
     public function askWithValidation(
         string $question,

@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "license": "MIT",
     "authors": [
         {
@@ -22,7 +22,8 @@
         "katakana",
         "database",
         "mail",
-        "logger"
+        "logger",
+        "boolean"
     ],
     "require": {
         "php": "^7.1 || ^8.0",

@@ -5,6 +5,7 @@ namespace Shimoning\LaravelUtilities\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
 use Illuminate\Validation\ValidationRuleParser;
+use Illuminate\Support\Str;
 
 /**
  * 文字で区切られた配列のバリデーション
@@ -40,6 +41,13 @@ class JoinedArray implements Rule
     public $max = null;
 
     /**
+     * エラーメッセージ
+     *
+     * @var string|null
+     */
+    protected $customMessage = null;
+
+    /**
       * @param any $validator
       * @param array|null $options
       */
@@ -71,9 +79,17 @@ class JoinedArray implements Rule
         $values = \explode($this->separator, \str_replace(' ', '', $value));
 
         if (! \is_null($this->min) && \count($values) < $this->min) {
+            $this->customMessage = trans(
+                'laravel-utilities::validation.joined-array-min',
+                [ 'separator' => $this->separator, 'min' => $this->min ],
+            );
             return false;
         }
         if (! \is_null($this->max) && \count($values) > $this->max) {
+            $this->customMessage = trans(
+                'laravel-utilities::validation.joined-array-max',
+                [ 'separator' => $this->separator, 'max' => $this->max ],
+            );
             return false;
         }
 
@@ -105,12 +121,21 @@ class JoinedArray implements Rule
         }
 
         if ($rule instanceof Rule) {
-            return $rule->passes($attribute, $value);
+            $validated = $rule->passes($attribute, $value);
+            if (!$validated) {
+                $this->customMessage = $rule->message();
+            }
+            return $validated;
         }
 
         $method = "validate{$rule}";
         if (\method_exists($this, $method)) {
-            return $this->$method($attribute, $value, $parameters);
+            $validated = $this->$method($attribute, $value, $parameters);
+            if (!$validated) {
+                $lowerRule = Str::snake($rule);
+                $this->customMessage = "validation.{$lowerRule}";
+            }
+            return $validated;
         }
 
         return false;
@@ -123,6 +148,9 @@ class JoinedArray implements Rule
      */
     public function message()
     {
-        return trans('laravel-utilities::validation.joined-array');
+        return $this->customMessage ?? trans(
+            'laravel-utilities::validation.joined-array',
+            [ 'separator' => $this->separator ]
+        );
     }
 }

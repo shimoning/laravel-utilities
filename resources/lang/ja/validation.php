@@ -13,5 +13,7 @@ return [
     'time' => ':attribute は、数字とコロンのみを含む時間を24時間未満で入力してください。',
     'time_over_24' => ':attribute は、数字とコロンのみを含む時間を入力してください。',
     'boolean' => ':attribute には真偽値を入力してください。',
-    'joined-array' => ':attribute には文字で区切られた配列を入力してください。',
+    'joined-array' => ':attribute には、配列を文字(:separator)で区切った文字列を入力してください。',
+    'joined-array-min' => ':attribute には、配列を文字(:separator)で区切った :min個以上の値を含む文字列を入力してください。',
+    'joined-array-max' => ':attribute には、配列を文字(:separator)で区切った :max個以内の値を含む文字列を入力してください。',
 ];

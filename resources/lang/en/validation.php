@@ -13,5 +13,5 @@ return [
     'time' => ':attribute is not a valid time.',
     'time_over_24' => ':attribute is not a valid time.',
     'boolean' => 'The :attribute field must be true or false.',
-    'joined-array' => 'The :attribute field must be separated string.',
+    'joined-array' => 'The :attribute field must be separated by :separator.',
 ];

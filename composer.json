@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "license": "MIT",
     "authors": [
         {
@@ -28,12 +28,12 @@
     ],
     "require": {
         "php": "^7.1 || ^8.0",
-        "illuminate/database": "5.8.* || ^6 || ^7 || ^8",
-        "illuminate/events": "5.8.* || ^6 || ^7 || ^8",
-        "illuminate/mail": "5.8.* || ^6 || ^7 || ^8",
-        "illuminate/support": "5.8.* || ^6 || ^7 || ^8",
-        "illuminate/translation": "5.8.* || ^6 || ^7 || ^8",
-        "illuminate/validation": "5.8.* || ^6 || ^7 || ^8",
+        "illuminate/database": "5.8.* || ^6 || ^7 || ^8 || ^9",
+        "illuminate/events": "5.8.* || ^6 || ^7 || ^8 || ^9",
+        "illuminate/mail": "5.8.* || ^6 || ^7 || ^8 || ^9",
+        "illuminate/support": "5.8.* || ^6 || ^7 || ^8 || ^9",
+        "illuminate/translation": "5.8.* || ^6 || ^7 || ^8 || ^9",
+        "illuminate/validation": "5.8.* || ^6 || ^7 || ^8 || ^9",
         "hashids/hashids": "^4.0"
     },
     "require-dev": {

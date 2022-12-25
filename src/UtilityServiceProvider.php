@@ -5,13 +5,15 @@ namespace Shimoning\LaravelUtilities;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Database\Events\TransactionCommitted;
 use Illuminate\Database\Events\TransactionRolledBack;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Mail\Events\MessageSent;
-
 use Shimoning\LaravelUtilities\Listeners\MailLogger;
+use Shimoning\Formatter\Sql;
 
 class UtilityServiceProvider extends ServiceProvider
 {
@@ -40,29 +42,16 @@ class UtilityServiceProvider extends ServiceProvider
 
         // Logging DB
         if (config('laravel-utilities.db_logging', true)) {
-            $channel = config('laravel-utilities.db_logging_channel');
-
-            // Query
-            Event::listen(QueryExecuted::class, function ($event) use ($channel) {
-                Log::channel($channel)->info("Query Time: {$event->time}s] $event->sql", $event->bindings);
-            });
-
-            // Transaction
-            Event::listen(TransactionBeginning::class, function ($event) use ($channel) {
-                Log::channel($channel)->info("DB: {$event->connectionName}] DB::beginTransaction()");
-            });
-            Event::listen(TransactionCommitted::class, function ($event) use ($channel) {
-                Log::channel($channel)->info("DB: {$event->connectionName}] DB::commit()");
-            });
-            Event::listen(TransactionRolledBack::class, function ($event) use ($channel) {
-                Log::channel($channel)->info("DB: {$event->connectionName}] DB::rollBack()");
-            });
+            $this->bootDbLogging();
         }
 
         // Logging Mail
         if (config('laravel-utilities.mail_logging', true)) {
             Event::listen(MessageSent::class, MailLogger::class);
         }
+
+        // query macro
+        $this->bootQueryMacro();
     }
 
     /**
@@ -93,5 +82,72 @@ class UtilityServiceProvider extends ServiceProvider
         $this->publishes([
             self::TRANSLATIONS_PATH => resource_path('lang/vendor/laravel-utilities'),
         ], 'translation');
+    }
+
+    /**
+     * DBログのイベントリスナを設置
+     *
+     * @return void
+     */
+    public function bootDbLogging(): void
+    {
+        $channel = config('laravel-utilities.db_logging_channel', 'stack');
+
+        // Query
+        Event::listen(QueryExecuted::class, function ($event) use ($channel) {
+            Log::channel($channel)->info("Query Time: {$event->time}s] $event->sql", $event->bindings);
+        });
+
+        // Transaction
+        Event::listen(TransactionBeginning::class, function ($event) use ($channel) {
+            Log::channel($channel)->info("DB: {$event->connectionName}] DB::beginTransaction()");
+        });
+        Event::listen(TransactionCommitted::class, function ($event) use ($channel) {
+            Log::channel($channel)->info("DB: {$event->connectionName}] DB::commit()");
+        });
+        Event::listen(TransactionRolledBack::class, function ($event) use ($channel) {
+            Log::channel($channel)->info("DB: {$event->connectionName}] DB::rollBack()");
+        });
+    }
+
+    /**
+     * マクロをセット
+     *
+     * @return void
+     */
+    public function bootQueryMacro(): void
+    {
+        Builder::macro('whereLike', function($columns, $search) {
+            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
+            $this->where(function($query) use ($columns, $sanitizedSearch) {
+                foreach (Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "%{$sanitizedSearch}%");
+                }
+            });
+
+            return $this;
+        });
+
+        Builder::macro('whereLikeForward', function($columns, $search) {
+            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
+            $this->where(function($query) use ($columns, $sanitizedSearch) {
+                foreach (Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "{$sanitizedSearch}%");
+                }
+            });
+
+            return $this;
+        });
+
+        Builder::macro('whereLikeBackward', function($columns, $search) {
+            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
+            $this->where(function($query) use ($columns, $sanitizedSearch) {
+                foreach (Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "%{$sanitizedSearch}");
+                }
+            });
+
+            return $this;
+        });
     }
 }

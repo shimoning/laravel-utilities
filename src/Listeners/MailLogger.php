@@ -34,7 +34,7 @@ class MailLogger
         $fromAddresses = collect($message->getFrom())->keys();
         $subject = $message->getSubject();
 
-        Log::channel(config('laravel-utilities.mail_logging_channel'))
+        Log::channel(config('laravel-utilities.mail_logging_channel', 'stack'))
             ->info("Mail sent to {$toAddresses} from {$fromAddresses}, subject: {$subject}");
     }
 }

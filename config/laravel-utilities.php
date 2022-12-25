@@ -3,9 +3,9 @@
 return [
     // for Database logger
     'db_logging' => env('DB_LOGGING', false),
-    'db_logging_channel' => env('DB_LOGGING_CHANNEL', null),
+    'db_logging_channel' => env('DB_LOGGING_CHANNEL', 'stack'),
 
     // for Mail logger
     'mail_logging' => env('MAIL_LOGGING', false),
-    'mail_logging_channel' => env('MAIL_LOGGING_CHANNEL', null),
+    'mail_logging_channel' => env('MAIL_LOGGING_CHANNEL', 'stack'),
 ];

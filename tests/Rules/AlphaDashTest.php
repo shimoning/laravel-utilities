@@ -42,4 +42,16 @@ class AlphaDashTest extends TestCase
         $result = (new AlphaDash)->passes('field', 'alphaひらがな');
         $this->assertEquals(false, $result);
     }
+
+    public function test_withSpace()
+    {
+        $result = (new AlphaDash)->passes('field', 'al pha-1234');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_withSpaceAllowed()
+    {
+        $result = (new AlphaDash(['withSpace' => true]))->passes('field', 'al pha_1234');
+        $this->assertEquals(true, $result);
+    }
 }

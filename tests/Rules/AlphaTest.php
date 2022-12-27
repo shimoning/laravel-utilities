@@ -36,4 +36,16 @@ class AlphaTest extends TestCase
         $result = (new Alpha)->passes('field', 'alphaひらがな');
         $this->assertEquals(false, $result);
     }
+
+    public function test_withSpace()
+    {
+        $result = (new Alpha)->passes('field', 'al pha');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_withSpaceAllowed()
+    {
+        $result = (new Alpha(['withSpace' => true]))->passes('field', 'al pha');
+        $this->assertEquals(true, $result);
+    }
 }

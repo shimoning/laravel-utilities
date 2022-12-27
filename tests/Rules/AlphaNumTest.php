@@ -27,19 +27,31 @@ class AlphaNumTest extends TestCase
 
     public function test_withUnderscore()
     {
-        $result = (new AlphaNum)->passes('field', 'alpha_beta');
+        $result = (new AlphaNum)->passes('field', 'alpha_beta1234');
         $this->assertEquals(false, $result);
     }
 
     public function test_withDash()
     {
-        $result = (new AlphaNum)->passes('field', 'alpha-beta');
+        $result = (new AlphaNum)->passes('field', 'alpha-beta1234');
         $this->assertEquals(false, $result);
     }
 
     public function test_withHiragana()
     {
-        $result = (new AlphaNum)->passes('field', 'alphaひらがな');
+        $result = (new AlphaNum)->passes('field', 'alphaひらがな1234');
         $this->assertEquals(false, $result);
+    }
+
+    public function test_withSpace()
+    {
+        $result = (new AlphaNum)->passes('field', 'al pha1234');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_withSpaceAllowed()
+    {
+        $result = (new AlphaNum(['withSpace' => true]))->passes('field', 'al pha1234');
+        $this->assertEquals(true, $result);
     }
 }

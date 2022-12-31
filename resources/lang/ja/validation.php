@@ -2,7 +2,8 @@
 
 return [
     'alpha' => ':attribute には英字のみからなる文字列を入力してください。',
-    'alpha_dash' => ':attribute には英数字・ハイフン・アンダースコアのみからなる文字列を入力してください。',
+    'alpha_dash' => ':attribute には英字・ハイフン・アンダースコアのみからなる文字列を入力してください。',
+    'alpha_num_dash' => ':attribute には英数字・ハイフン・アンダースコアのみからなる文字列を入力してください。',
     'alpha_num' => ':attribute には英数字のみからなる文字列を入力してください。',
     'capitalized_alpha' => ':attribute は大文字の半角英字で入力してください。',
     'hex-color' => ':attribute に16進数で色コードを入力してください。',

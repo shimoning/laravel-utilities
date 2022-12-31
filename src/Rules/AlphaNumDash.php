@@ -4,7 +4,7 @@ namespace Shimoning\LaravelUtilities\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class AlphaDash implements Rule
+class AlphaNumDash implements Rule
 {
     /**
      * 半角スペースを受け付ける
@@ -33,7 +33,7 @@ class AlphaDash implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[A-Za-z_\-' . ($this->withSpace ? ' ' : '' ) . ']+$/', $value);
+        return preg_match('/^[A-Za-z0-9_\-' . ($this->withSpace ? ' ' : '' ) . ']+$/', $value);
     }
 
     /**
@@ -43,6 +43,6 @@ class AlphaDash implements Rule
      */
     public function message()
     {
-        return trans('laravel-utilities::validation.alpha_dash');
+        return trans('laravel-utilities::validation.alpha_num_dash');
     }
 }

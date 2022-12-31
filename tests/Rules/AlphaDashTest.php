@@ -19,12 +19,6 @@ class AlphaDashTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
-    public function test_withNumber()
-    {
-        $result = (new AlphaDash)->passes('field', 'alpha1234');
-        $this->assertEquals(true, $result);
-    }
-
     public function test_withUnderscore()
     {
         $result = (new AlphaDash)->passes('field', 'alpha_beta');
@@ -37,6 +31,12 @@ class AlphaDashTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
+    public function test_withNumber()
+    {
+        $result = (new AlphaDash)->passes('field', 'alpha1234');
+        $this->assertEquals(false, $result);
+    }
+
     public function test_withHiragana()
     {
         $result = (new AlphaDash)->passes('field', 'alphaひらがな');
@@ -45,13 +45,13 @@ class AlphaDashTest extends TestCase
 
     public function test_withSpace()
     {
-        $result = (new AlphaDash)->passes('field', 'al pha-1234');
+        $result = (new AlphaDash)->passes('field', 'al p-ha');
         $this->assertEquals(false, $result);
     }
 
     public function test_withSpaceAllowed()
     {
-        $result = (new AlphaDash(['withSpace' => true]))->passes('field', 'al pha_1234');
+        $result = (new AlphaDash(['withSpace' => true]))->passes('field', 'al p_ha');
         $this->assertEquals(true, $result);
     }
 }

@@ -133,7 +133,7 @@ class JoinedArray implements Rule
             $validated = $this->$method($attribute, $value, $parameters);
             if (!$validated) {
                 $lowerRule = Str::snake($rule);
-                $this->customMessage = "validation.{$lowerRule}";
+                $this->customMessage = trans("validation.{$lowerRule}");
             }
             return $validated;
         }

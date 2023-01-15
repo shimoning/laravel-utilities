@@ -60,4 +60,28 @@ class PostalCodeTest extends TestCase
         $result = (new PostalCode(['hyphenIgnored' => true]))->passes('field', '012-3456');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new PostalCode)->passes('field', "012-3456\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new PostalCode)->passes('field', "012-3456\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new PostalCode)->passes('field', "012-3456\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new PostalCode)->passes('field', "012-3\n456");
+        $this->assertEquals(false, $result);
+    }
 }

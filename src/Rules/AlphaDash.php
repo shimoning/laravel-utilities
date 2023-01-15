@@ -14,6 +14,13 @@ class AlphaDash implements Rule
     public $withSpace = false;
 
     /**
+     * 改行を許可する
+     *
+     * @var bool
+     */
+    public $allowMultiline = false;
+
+    /**
      * @param array|null
      * @return void
      */
@@ -21,6 +28,9 @@ class AlphaDash implements Rule
     {
         if (isset($options['withSpace'])) {
             $this->withSpace = (bool)$options['withSpace'];
+        }
+        if (isset($options['allowMultiline'])) {
+            $this->allowMultiline = (bool)$options['allowMultiline'];
         }
     }
 
@@ -33,7 +43,10 @@ class AlphaDash implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[A-Za-z_\-' . ($this->withSpace ? ' ' : '' ) . ']+$/', $value);
+        return preg_match(
+            '/\A[A-Za-z_\-' . ($this->withSpace ? ' ' : '' ) . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/',
+            $value
+        );
     }
 
     /**

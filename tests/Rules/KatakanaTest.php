@@ -72,4 +72,34 @@ class KatakanaTest extends TestCase
         $result = (new Katakana)->passes('field', 'カタ仮名');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new Katakana)->passes('field', "カタカナ\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastLfAllowedMultiline()
+    {
+        $result = (new Katakana(['allowMultiline' => true]))->passes('field', "カタカナ\n");
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new Katakana)->passes('field', "カタカナ\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new Katakana)->passes('field', "カタカナ\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new Katakana)->passes('field', "カタ\nカナ");
+        $this->assertEquals(false, $result);
+    }
 }

@@ -64,7 +64,7 @@ class Time implements Rule
             $second = '';
         }
 
-        return preg_match('/^' . $hour . '([0-5]?[0-9])' . $second . '$/', $value);
+        return preg_match('/\A' . $hour . '([0-5]?[0-9])' . $second . '\z/', $value);
     }
 
     /**

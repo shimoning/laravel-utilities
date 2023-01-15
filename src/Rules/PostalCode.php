@@ -50,7 +50,7 @@ class PostalCode implements Rule
             $hyphen = '';
         }
 
-        return preg_match('/^\d{3}' . $hyphen . '\d{4}$/', $value);
+        return preg_match('/\A\d{3}' . $hyphen . '\d{4}\z/', $value);
     }
 
     /**

@@ -108,4 +108,28 @@ class TimeTest extends TestCase
         $result = (new Time(['secondIgnored' => true]))->passes('field', '01:23:45');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new Time)->passes('field', "01:23:45\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new Time)->passes('field', "01:23:45\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new Time)->passes('field', "01:23:45\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new Time)->passes('field', "01:23\n:45");
+        $this->assertEquals(false, $result);
+    }
 }

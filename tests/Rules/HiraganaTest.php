@@ -72,4 +72,34 @@ class HiraganaTest extends TestCase
         $result = (new Hiragana)->passes('field', 'ひら仮名');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new Hiragana)->passes('field', "ひらがな\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastLfAllowedMultiline()
+    {
+        $result = (new Hiragana(['allowMultiline' => true]))->passes('field', "ひらがな\n");
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new Hiragana)->passes('field', "ひらがな\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new Hiragana)->passes('field', "ひらがな\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new Hiragana)->passes('field', "ひら\nがな");
+        $this->assertEquals(false, $result);
+    }
 }

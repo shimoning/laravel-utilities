@@ -14,6 +14,13 @@ class Katakana implements Rule
     public $withSpace = false;
 
     /**
+     * 改行を許可する
+     *
+     * @var bool
+     */
+    public $allowMultiline = false;
+
+    /**
      * @param array|null
      * @return void
      */
@@ -21,6 +28,9 @@ class Katakana implements Rule
     {
         if (isset($options['withSpace'])) {
             $this->withSpace = (bool)$options['withSpace'];
+        }
+        if (isset($options['allowMultiline'])) {
+            $this->allowMultiline = (bool)$options['allowMultiline'];
         }
     }
 
@@ -33,6 +43,10 @@ class Katakana implements Rule
      */
     public function passes($attribute, $value)
     {
+        return preg_match(
+            '/\A[ァ-ヶー' . ($this->withSpace ? ' 　' : '') . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
+            $value
+        );
         return preg_match('/^[ァ-ヶー' . ($this->withSpace ? ' 　' : '' ) . ']+$/u', $value);
     }
 

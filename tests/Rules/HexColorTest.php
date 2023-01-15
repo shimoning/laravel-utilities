@@ -97,4 +97,28 @@ class HexColorTest extends TestCase
         $result = (new HexColor(['allowLong' => false, 'allowShort' => false]))->passes('field', '#ffffff');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new HexColor)->passes('field', "#ffffff\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new HexColor)->passes('field', "#ffffff\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new HexColor)->passes('field', "#ffffff\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new HexColor)->passes('field', "#ff\nffff");
+        $this->assertEquals(false, $result);
+    }
 }

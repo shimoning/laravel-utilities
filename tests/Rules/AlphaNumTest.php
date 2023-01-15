@@ -54,4 +54,34 @@ class AlphaNumTest extends TestCase
         $result = (new AlphaNum(['withSpace' => true]))->passes('field', 'al pha1234');
         $this->assertEquals(true, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new AlphaNum)->passes('field', "alpha\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastLfAllowedMultiline()
+    {
+        $result = (new AlphaNum(['allowMultiline' => true]))->passes('field', "alpha\n");
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new AlphaNum)->passes('field', "alpha\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new AlphaNum)->passes('field', "alpha\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new AlphaNum)->passes('field', "al\npha");
+        $this->assertEquals(false, $result);
+    }
 }

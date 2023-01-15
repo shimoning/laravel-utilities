@@ -7,6 +7,34 @@ use Illuminate\Contracts\Validation\Rule;
 class CapitalizedAlpha implements Rule
 {
     /**
+     * 半角スペースを受け付ける
+     *
+     * @var bool
+     */
+    public $withSpace = false;
+
+    /**
+     * 改行を許可する
+     *
+     * @var bool
+     */
+    public $allowMultiline = false;
+
+    /**
+     * @param array|null
+     * @return void
+     */
+    public function __construct($options = null)
+    {
+        if (isset($options['withSpace'])) {
+            $this->withSpace = (bool)$options['withSpace'];
+        }
+        if (isset($options['allowMultiline'])) {
+            $this->allowMultiline = (bool)$options['allowMultiline'];
+        }
+    }
+
+    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
@@ -15,7 +43,10 @@ class CapitalizedAlpha implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[A-Z]+$/', $value);
+        return preg_match(
+            '/\A[A-Z\-' . ($this->withSpace ? ' ' : '' ) . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/',
+            $value
+        );
     }
 
     /**

@@ -78,4 +78,28 @@ class PhoneNumberTest extends TestCase
         $result = (new PhoneNumber(['withCountryCode' => true]))->passes('field', '012-3456-7890');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new PhoneNumber)->passes('field', "01234567890\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new PhoneNumber)->passes('field', "01234567890\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new PhoneNumber)->passes('field', "01234567890\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new PhoneNumber)->passes('field', "01234\n567890");
+        $this->assertEquals(false, $result);
+    }
 }

@@ -72,7 +72,7 @@ class HexColor implements Rule
         if ($this->withHash) {
             $regex = self::HASH . $regex;
         }
-        return preg_match('/^' . $regex . '$/', $value);
+        return preg_match('/\A' . $regex . '\z/', $value);
     }
 
     /**

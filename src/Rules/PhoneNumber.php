@@ -65,7 +65,7 @@ class PhoneNumber implements Rule
             $hyphen = '';
         }
 
-        return preg_match('/^' . $prefix . '[1-9]\d{0,3}' . $hyphen . '\d{1,4}' . $hyphen . '\d{3,4}$/', $value);
+        return preg_match('/\A' . $prefix . '[1-9]\d{0,3}' . $hyphen . '\d{1,4}' . $hyphen . '\d{3,4}\z/', $value);
     }
 
     /**

@@ -48,4 +48,34 @@ class CapitalizedAlphaTest extends TestCase
         $result = (new CapitalizedAlpha)->passes('field', 'alphaひらがな');
         $this->assertEquals(false, $result);
     }
+
+    public function test_lastLf()
+    {
+        $result = (new CapitalizedAlpha)->passes('field', "ALPHA\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastLfAllowedMultiline()
+    {
+        $result = (new CapitalizedAlpha(['allowMultiline' => true]))->passes('field', "ALPHA\n");
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_last2Lf()
+    {
+        $result = (new CapitalizedAlpha)->passes('field', "ALPHA\n\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_lastCrLf()
+    {
+        $result = (new CapitalizedAlpha)->passes('field', "ALPHA\r\n");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_includingLf()
+    {
+        $result = (new CapitalizedAlpha)->passes('field', "AL\nPHA");
+        $this->assertEquals(false, $result);
+    }
 }

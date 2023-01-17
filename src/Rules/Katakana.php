@@ -47,7 +47,6 @@ class Katakana implements Rule
             '/\A[ァ-ヶー' . ($this->withSpace ? ' 　' : '') . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
             $value
         );
-        return preg_match('/^[ァ-ヶー' . ($this->withSpace ? ' 　' : '' ) . ']+$/u', $value);
     }
 
     /**

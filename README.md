@@ -66,12 +66,27 @@ todo: 記述予定...
 #### Time
 時間
 
-## Logger
-### Database
+### Logger
+#### Database
 .env に `DB_LOGGING` を true で設定すると、デフォルトのログチャンネルにログを残す。
 
-### Mail
+#### Mail
 .env に `MAIL_LOGGING` を true で設定すると、デフォルトのログチャンネルにログを残す。
+
+### Fakers
+使い方は Laravel のバージョンによって異なる。
+
+**Laravel9**
+factory クラスなど fake() を呼び出すところで、以下のようにする。
+```php
+$faker = fake();
+$faker->addProvider(new Product($faker));
+
+$faker->product(); // 商品1234
+```
+
+#### Product
+商品
 
 
 ## 翻訳ファイルのカスタマイズ

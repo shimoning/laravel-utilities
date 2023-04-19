@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "license": "MIT",
     "authors": [
         {
@@ -27,7 +27,7 @@
         "uuid"
     ],
     "repositories": {
-        "formatter": {
+        "shimoning/formatter": {
             "type": "vcs",
             "url": "https://github.com/shimoning/formatter.git"
         }

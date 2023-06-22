@@ -7,6 +7,10 @@ Laravel 用の便利クラス
 利用するプロジェクトの `composer.json` に以下を追加する。
 ```composer.json
 "repositories": {
+    "shimoning/formatter": {
+        "type": "vcs",
+        "url": "https://github.com/shimoning/formatter.git"
+    },
     "laravel-utilities": {
         "type": "vcs",
         "url": "https://github.com/shimoning/laravel-utilities.git"
@@ -23,7 +27,13 @@ composer require shimoning/laravel-utilities
 ## Caution
 Laravel がないと動きません。
 バージョンは 5.8 以上で動くと思われるが、他のバージョンについては確認中。
-PHP は 7.1 以上。
+PHP は 7.1 以上 (8.1 以上推奨)。
+
+### 動作確認済み Laravel
+* 5.8
+* 8
+* 9
+* 10
 
 ## Usage
 

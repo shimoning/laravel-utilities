@@ -102,4 +102,16 @@ class KatakanaTest extends TestCase
         $result = (new Katakana)->passes('field', "カタ\nカナ");
         $this->assertEquals(false, $result);
     }
+
+    public function test_withoutKe()
+    {
+        $result = (new Katakana(['withKaKe' => false]))->passes('field', "ヶタ\nカナ");
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_withoutKa()
+    {
+        $result = (new Katakana(['withKaKe' => false]))->passes('field', "ヵタ\nカナ");
+        $this->assertEquals(false, $result);
+    }
 }

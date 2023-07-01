@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.9.2",
+    "version": "0.9.4",
     "license": "MIT",
     "authors": [
         {
@@ -20,6 +20,8 @@
         "rule",
         "hiragana",
         "katakana",
+        "hankaku",
+        "ank",
         "database",
         "mail",
         "logger",

@@ -6,6 +6,16 @@ use Illuminate\Contracts\Validation\Rule;
 
 class Katakana implements Rule
 {
+    const KATAKANA = 'ァ-ヴー';
+    const KA_KE = 'ヵヶ';
+
+    /**
+     * カやケの小文字を許可する (default = true)
+     *
+     * @var bool
+     */
+    public $withKaKe = true;
+
     /**
      * 半角スペース全角スペースを受け付ける
      *
@@ -26,6 +36,9 @@ class Katakana implements Rule
      */
     public function __construct($options = null)
     {
+        if (isset($options['withKaKe'])) {
+            $this->withKaKe = (bool)$options['withKaKe'];
+        }
         if (isset($options['withSpace'])) {
             $this->withSpace = (bool)$options['withSpace'];
         }
@@ -43,8 +56,12 @@ class Katakana implements Rule
      */
     public function passes($attribute, $value)
     {
+        $regex = self::KATAKANA
+            . ($this->withKaKe ? self::KA_KE : '')
+            . ($this->withSpace ? ' 　' : '');
+
         return preg_match(
-            '/\A[ァ-ヶー' . ($this->withSpace ? ' 　' : '') . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
+            '/\A[' . $regex . ']+'. ($this->allowMultiline ? '\Z' : '\z') . '/u',
             $value
         );
     }

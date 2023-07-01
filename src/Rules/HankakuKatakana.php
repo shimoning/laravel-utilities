@@ -6,8 +6,42 @@ use Illuminate\Contracts\Validation\Rule;
 
 class HankakuKatakana implements Rule
 {
+    const HANKAKU_KATAKANA = 'ｦ-ﾟ';
+    const HANKAKU_KIGOU = '｡｢｣､･';
+    const ALPHABET = 'A-Za-z';
+    const NUMBER = '0-9';
+    const SYMBOL = '!-\/:-@\[-`\{-\~';
+
     /**
-     * 半角スペース全角スペースを受け付ける
+     * 半角記号(日本語)を受け付ける
+     *
+     * @var bool
+     */
+    public $withKigou = false;
+
+    /**
+     * 半角英字を受け付ける
+     *
+     * @var bool
+     */
+    public $withAlphabet = false;
+
+    /**
+     * 半角数字を受け付ける
+     *
+     * @var bool
+     */
+    public $withNumber = false;
+
+    /**
+     * 半角記号(ASCII)を受け付ける
+     *
+     * @var bool
+     */
+    public $withSymbol = false;
+
+    /**
+     * 半角スペースを受け付ける
      *
      * @var bool
      */
@@ -26,6 +60,18 @@ class HankakuKatakana implements Rule
      */
     public function __construct($options = null)
     {
+        if (isset($options['withKigou'])) {
+            $this->withKigou = (bool)$options['withKigou'];
+        }
+        if (isset($options['withAlphabet'])) {
+            $this->withAlphabet = (bool)$options['withAlphabet'];
+        }
+        if (isset($options['withNumber'])) {
+            $this->withNumber = (bool)$options['withNumber'];
+        }
+        if (isset($options['withSymbol'])) {
+            $this->withSymbol = (bool)$options['withSymbol'];
+        }
         if (isset($options['withSpace'])) {
             $this->withSpace = (bool)$options['withSpace'];
         }
@@ -43,8 +89,15 @@ class HankakuKatakana implements Rule
      */
     public function passes($attribute, $value)
     {
+        $regex = self::HANKAKU_KATAKANA
+            . ($this->withKigou ? self::HANKAKU_KIGOU : '')
+            . ($this->withAlphabet ? self::ALPHABET : '')
+            . ($this->withNumber ? self::NUMBER : '')
+            . ($this->withSymbol ? self::SYMBOL : '')
+            . ($this->withSpace ? ' ' : '');
+
         return preg_match(
-            '/\A[ｦ-ﾟ' . ($this->withSpace ? ' ' : '') . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
+            '/\A[' . $regex . ']+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
             $value
         );
     }

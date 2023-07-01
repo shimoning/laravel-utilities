@@ -61,10 +61,82 @@ class HankakuKatakanaTest extends TestCase
         $this->assertEquals(false, $result);
     }
 
+    public function test_successfullyWithAlpha()
+    {
+        $result = (new HankakuKatakana(['withAlphabet' => true]))->passes('field', 'ｶﾀkana');
+        $this->assertEquals(true, $result);
+    }
+
     public function test_withNumber()
     {
         $result = (new HankakuKatakana)->passes('field', 'ｶﾀ1234');
         $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithNumber()
+    {
+        $result = (new HankakuKatakana(['withNumber' => true]))->passes('field', 'ｶﾀ1234');
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_withSymbol1()
+    {
+        $result = (new HankakuKatakana)->passes('field', 'ｶﾀｶﾅ!');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithSymbol1()
+    {
+        $result = (new HankakuKatakana(['withSymbol' => true]))->passes('field', 'ｶﾀｶﾅ!');
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_withSymbol2()
+    {
+        $result = (new HankakuKatakana)->passes('field', 'ｶﾀｶﾅ@');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithSymbol2()
+    {
+        $result = (new HankakuKatakana(['withSymbol' => true]))->passes('field', 'ｶﾀｶﾅ@');
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_withSymbol3()
+    {
+        $result = (new HankakuKatakana)->passes('field', 'ｶﾀｶﾅ`');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithSymbol3()
+    {
+        $result = (new HankakuKatakana(['withSymbol' => true]))->passes('field', 'ｶﾀｶﾅ`');
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_withSymbol4()
+    {
+        $result = (new HankakuKatakana)->passes('field', 'ｶﾀｶﾅ~');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithSymbol4()
+    {
+        $result = (new HankakuKatakana(['withSymbol' => true]))->passes('field', 'ｶﾀｶﾅ~');
+        $this->assertEquals(true, $result);
+    }
+
+    public function test_withKigou()
+    {
+        $result = (new HankakuKatakana)->passes('field', '｢ｶﾀｶﾅ｣');
+        $this->assertEquals(false, $result);
+    }
+
+    public function test_successfullyWithKigou()
+    {
+        $result = (new HankakuKatakana(['withKigou' => true]))->passes('field', '｢ｶﾀｶﾅ｣');
+        $this->assertEquals(true, $result);
     }
 
     public function test_withKanji()

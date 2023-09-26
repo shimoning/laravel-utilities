@@ -38,10 +38,13 @@ PHP は 7.1 以上 (8.1 以上推奨)。
 ## Usage
 
 ### Seeders
-todo: 記述予定...
 
 #### AskWithValidationTrait
-`php artisan db:seed` 実行時に引数を受け取る時にバリデーションを行う関数を提供する。
+シーダー実行時に、対話式で受け取った入力をバリデーションする関数を提供する。
+
+#### TruncateAllTablesSeeder
+名前の通り、全てのテーブルで truncate を実施する。
+外部キー制約があっても truncate が行える。
 
 ### Rules
 todo: 記述予定...

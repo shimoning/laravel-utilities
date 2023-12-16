@@ -18,6 +18,13 @@ Laravel 用の便利クラス
 },
 ```
 
+もしくは以下のコマンドを実行する。
+
+```bash
+composer config repositories.shimoning/formatter vcs git@github.com/shimoning/formatter.git
+composer config repositories.shimoning/laravel-utilities vcs git@github.com/shimoning/laravel-utilities.git
+```
+
 その後以下でインストールする。
 
 ```bash
@@ -45,6 +52,11 @@ PHP は 7.1 以上 (8.1 以上推奨)。
 #### TruncateAllTablesSeeder
 名前の通り、全てのテーブルで truncate を実施する。
 外部キー制約があっても truncate が行える。
+
+以下のように実行する。
+```cli
+php artisan db:seed --class=Shimoning\\LaravelUtilities\\Seeders\\TruncateAllTablesSeeder
+```
 
 ### Rules
 todo: 記述予定...
@@ -103,12 +115,12 @@ $faker->product(); // 商品1234
 
 
 ## 翻訳ファイルのカスタマイズ
-```sh
+```cli
 php artisan vendor:publish --provider="Shimoning\LaravelUtilities\UtilityServiceProvider" --tag=translation
 ```
 
 ## 設定ファイルのカスタマイズ
-```sh
+```cli
 php artisan vendor:publish --provider="Shimoning\LaravelUtilities\UtilityServiceProvider" --tag=config
 ```
 

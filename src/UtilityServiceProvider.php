@@ -118,10 +118,9 @@ class UtilityServiceProvider extends ServiceProvider
     public function bootQueryMacro(): void
     {
         Builder::macro('whereLike', function($columns, $search) {
-            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
-            $this->where(function($query) use ($columns, $sanitizedSearch) {
-                foreach (Arr::wrap($columns) as $column) {
-                    $query->orWhere($column, 'LIKE', "%{$sanitizedSearch}%");
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->where($column, 'LIKE', "%{$search}%");
                 }
             });
 
@@ -129,10 +128,9 @@ class UtilityServiceProvider extends ServiceProvider
         });
 
         Builder::macro('whereLikeForward', function($columns, $search) {
-            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
-            $this->where(function($query) use ($columns, $sanitizedSearch) {
-                foreach (Arr::wrap($columns) as $column) {
-                    $query->orWhere($column, 'LIKE', "{$sanitizedSearch}%");
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->where($column, 'LIKE', "{$search}%");
                 }
             });
 
@@ -140,10 +138,39 @@ class UtilityServiceProvider extends ServiceProvider
         });
 
         Builder::macro('whereLikeBackward', function($columns, $search) {
-            $sanitizedSearch = Sql::sanitizeTextForSearchQuery($search);
-            $this->where(function($query) use ($columns, $sanitizedSearch) {
-                foreach (Arr::wrap($columns) as $column) {
-                    $query->orWhere($column, 'LIKE', "%{$sanitizedSearch}");
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->where($column, 'LIKE', "%{$search}");
+                }
+            });
+
+            return $this;
+        });
+
+        Builder::macro('orWhereLike', function($columns, $search) {
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "%{$search}%");
+                }
+            });
+
+            return $this;
+        });
+
+        Builder::macro('orWhereLikeForward', function($columns, $search) {
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "{$search}%");
+                }
+            });
+
+            return $this;
+        });
+
+        Builder::macro('orWhereLikeBackward', function($columns, $search) {
+            $this->where(function($query) use ($columns, $search) {
+                foreach(\Arr::wrap($columns) as $column) {
+                    $query->orWhere($column, 'LIKE', "%{$search}");
                 }
             });
 

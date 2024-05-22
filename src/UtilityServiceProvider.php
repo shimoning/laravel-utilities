@@ -13,7 +13,6 @@ use Illuminate\Database\Events\TransactionRolledBack;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Mail\Events\MessageSent;
 use Shimoning\LaravelUtilities\Listeners\MailLogger;
-use Shimoning\Formatter\Sql;
 
 class UtilityServiceProvider extends ServiceProvider
 {
@@ -119,7 +118,7 @@ class UtilityServiceProvider extends ServiceProvider
     {
         Builder::macro('whereLike', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->where($column, 'LIKE', "%{$search}%");
                 }
             });
@@ -129,7 +128,7 @@ class UtilityServiceProvider extends ServiceProvider
 
         Builder::macro('whereLikeForward', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->where($column, 'LIKE', "{$search}%");
                 }
             });
@@ -139,7 +138,7 @@ class UtilityServiceProvider extends ServiceProvider
 
         Builder::macro('whereLikeBackward', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->where($column, 'LIKE', "%{$search}");
                 }
             });
@@ -147,9 +146,9 @@ class UtilityServiceProvider extends ServiceProvider
             return $this;
         });
 
-        Builder::macro('orWhereLike', function($columns, $search) {
+        Builder::macro('whereInLike', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->orWhere($column, 'LIKE', "%{$search}%");
                 }
             });
@@ -157,9 +156,9 @@ class UtilityServiceProvider extends ServiceProvider
             return $this;
         });
 
-        Builder::macro('orWhereLikeForward', function($columns, $search) {
+        Builder::macro('whereInLikeForward', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->orWhere($column, 'LIKE', "{$search}%");
                 }
             });
@@ -167,9 +166,9 @@ class UtilityServiceProvider extends ServiceProvider
             return $this;
         });
 
-        Builder::macro('orWhereLikeBackward', function($columns, $search) {
+        Builder::macro('whereInLikeBackward', function($columns, $search) {
             $this->where(function($query) use ($columns, $search) {
-                foreach(\Arr::wrap($columns) as $column) {
+                foreach(Arr::wrap($columns) as $column) {
                     $query->orWhere($column, 'LIKE', "%{$search}");
                 }
             });

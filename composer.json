@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.11.0",
+    "version": "0.11.1",
     "license": "MIT",
     "authors": [
         {

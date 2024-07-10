@@ -3,7 +3,7 @@
     "description": "Utilities for Laravel",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.11.2",
+    "version": "0.11.3",
     "license": "MIT",
     "authors": [
         {
@@ -44,7 +44,7 @@
         "illuminate/translation": "5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
         "illuminate/validation": "5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
         "hashids/hashids": "^4.0",
-        "shimoning/formatter": "^0.2 || ^0.3"
+        "shimoning/formatter": "^0.2 || ^0.3 || ^0.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

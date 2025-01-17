@@ -10,6 +10,7 @@ return [
     'hiragana' => 'The :attribute must be a valid "ひらがな".',
     'katakana' => 'The :attribute must be a valid "カタカナ".',
     'hankaku-katakana' => ':attribute  must be a valid "半角カタカナ".',
+    'hankaku-katakana_with_others' => ':attribute  must be a valid :others or "半角カタカナ".',
     'phone_number' => 'The :attribute must be a valid phone number.',
     'postal_code' => 'The :attribute must be a valid postal code.',
     'time' => ':attribute is not a valid time.',

@@ -109,6 +109,27 @@ class HankakuKatakana implements Rule
      */
     public function message()
     {
+        $others = [];
+        if ($this->withKigou) {
+            $others[] = trans('laravel-utilities::character.hankaku-kigou');
+        }
+        if ($this->withAlphabet) {
+            $others[] = trans('laravel-utilities::character.alpha');
+        }
+        if ($this->withNumber) {
+            $others[] = trans('laravel-utilities::character.num');
+        }
+        if ($this->withSymbol) {
+            $others[] = trans('laravel-utilities::character.symbol');
+        }
+        if ($this->withSpace) {
+            $others[] = trans('laravel-utilities::character.space');
+        }
+
+        if (count($others) > 0) {
+            return trans('laravel-utilities::validation.hankaku-katakana_with_others', ['others' => implode(', ', $others)]);
+        }
+
         return trans('laravel-utilities::validation.hankaku-katakana');
     }
 }

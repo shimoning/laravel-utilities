@@ -10,6 +10,7 @@ return [
     'hiragana' => ':attribute はひらがなで入力をしてください。',
     'katakana' => ':attribute はカタカナで入力をしてください。',
     'hankaku-katakana' => ':attribute は半角カタカナで入力をしてください。',
+    'hankaku-katakana_with_others' => ':attribute は半角カタカナや:othersで入力をしてください。',
     'phone_number' => ':attribute は、数字とハイフンのみを含む電話番号を市外局番から入力してください。',
     'postal_code' => ':attribute は正しい書式の郵便番号を入力してください。',
     'time' => ':attribute は、数字とコロンのみを含む時間を24時間未満で入力してください。',

@@ -27,6 +27,32 @@ class Zenkaku implements Rule
     public $allowMultiline = false;
 
     /**
+     * 文字数
+     * 文字数の指定がある場合は、min,maxは無視される
+     * @var int|null
+     */
+    public $length = null;
+
+    /**
+     * 最小数
+     * @var int|null
+     */
+    public $min = null;
+
+    /**
+     * 最大数
+     * @var int|null
+     */
+    public $max = null;
+
+    /**
+     * エラーメッセージ
+     *
+     * @var string|null
+     */
+    protected $customMessage = null;
+
+    /**
      * @param array|null
      * @return void
      */
@@ -37,6 +63,17 @@ class Zenkaku implements Rule
         }
         if (isset($options['allowMultiline'])) {
             $this->allowMultiline = (bool)$options['allowMultiline'];
+        }
+
+        if (isset($options['length'])) {
+            $this->length = (int)$options['length'];
+        } else {
+            if (isset($options['min'])) {
+                $this->min = (int)$options['min'];
+            }
+            if (isset($options['max'])) {
+                $this->max = (int)$options['max'];
+            }
         }
     }
 
@@ -49,10 +86,31 @@ class Zenkaku implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match(
+        //mb_strlen
+        $isZenkaku = preg_match(
             '/\A([^\x01-\x7E\xA1-\xDF]' . ($this->withHalfSpace ? '|\s' : '') . ')+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
             $value
         );
+        if (!$isZenkaku) {
+            $this->customMessage = trans('laravel-utilities::validation.zenkaku');
+            return false;
+        }
+        if ($this->length !== null && mb_strlen($value) !== $this->length) {
+            $this->customMessage = trans('laravel-utilities::validation.zenkaku-length', ['length' => $this->length]);
+            return false;
+        }
+
+        if ($this->min !== null && mb_strlen($value) < $this->min) {
+            $this->customMessage = trans('laravel-utilities::validation.zenkaku-min', ['min' => $this->min]);
+            return false;
+        }
+
+        if ($this->max !== null && mb_strlen($value) > $this->max) {
+            $this->customMessage = trans('laravel-utilities::validation.zenkaku-max', ['max' => $this->max]);
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -62,6 +120,6 @@ class Zenkaku implements Rule
      */
     public function message()
     {
-        return trans('laravel-utilities::validation.zenkaku');
+        return $this->customMessage ?? trans('laravel-utilities::validation.zenkaku');
     }
 }

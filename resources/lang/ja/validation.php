@@ -19,4 +19,8 @@ return [
     'joined-array' => ':attribute には、配列を文字(:separator)で区切った文字列を入力してください。',
     'joined-array-min' => ':attribute には、配列を文字(:separator)で区切った :min個以上の値を含む文字列を入力してください。',
     'joined-array-max' => ':attribute には、配列を文字(:separator)で区切った :max個以内の値を含む文字列を入力してください。',
+    'zenkaku' => ':attribute は全角で入力してください。',
+    'zenkaku-length' => ':attribute は全角:length文字で入力してください。',
+    'zenkaku-min' => ':attribute は全角:min文字以上で入力してください。',
+    'zenkaku-max' => ':attribute は全角:max文字以内で入力してください。',
 ];

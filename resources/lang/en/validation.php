@@ -19,4 +19,8 @@ return [
     'joined-array' => 'The :attribute field must be separated by :separator.',
     'joined-array-min' => ':attribute field must be separated by :separator and items be less than :min.',
     'joined-array-max' => ':attribute field must be separated by :separator and items be more than :max.',
+    'zenkaku' => 'The :attribute must be full-width characters.',
+    'zenkaku-length' => 'The :attribute must be full-width characters and exactly :length characters.',
+    'zenkaku-min' => 'The :attribute must be full-width characters and at least :min characters.',
+    'zenkaku-max' => 'The :attribute must be full-width characters and at most :max characters.',
 ];

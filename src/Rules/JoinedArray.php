@@ -18,7 +18,7 @@ class JoinedArray implements Rule
     /**
      * 配列内の個々の値のルール
      *
-     * @var any
+     * @var array|string|null
      */
     public $rule = null;
 
@@ -48,7 +48,7 @@ class JoinedArray implements Rule
     protected $customMessage = null;
 
     /**
-      * @param any $validator
+      * @param array|string|null $rule
       * @param array|null $options
       */
     public function __construct($rule = null, $options = null)

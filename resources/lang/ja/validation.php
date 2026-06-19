@@ -23,4 +23,7 @@ return [
     'zenkaku-length' => ':attribute は全角:length文字で入力してください。',
     'zenkaku-min' => ':attribute は全角:min文字以上で入力してください。',
     'zenkaku-max' => ':attribute は全角:max文字以内で入力してください。',
+    'charbyte-length' => ':attribute は文字で、ちょうど :length バイトで入力してください。',
+    'charbyte-min' => ':attribute は文字で、少なくとも :min バイトで入力してください。',
+    'charbyte-max' => ':attribute は文字で、最大 :max バイトで入力してください。',
 ];

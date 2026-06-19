@@ -2,38 +2,11 @@
 
 namespace Shimoning\Tests\Rules;
 
-use PHPUnit\Framework\TestCase;
-use phpmock\MockBuilder;
-use Illuminate\Translation\Translator;
-use Illuminate\Translation\FileLoader;
-use Illuminate\Filesystem\Filesystem;
 use Shimoning\LaravelUtilities\Rules\JoinedArray;
 use Shimoning\LaravelUtilities\Rules\Hiragana;
 
 class JoinedArrayTest extends TestCase
 {
-    public $mockTrans;
-
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
-    {
-        $trans = new Translator(new FileLoader(
-            new Filesystem(),
-            __DIR__ . '/../../resources/lang/'
-        ), 'ja');
-        $trans->addNamespace('laravel-utilities', __DIR__ . '/../../resources/lang/');
-
-        $builder = new MockBuilder();
-        $builder->setNamespace('Shimoning\\LaravelUtilities\\Rules')
-                ->setName('trans')
-                ->setFunction(
-                    function ($key = null, $replace = [], $locale = null) use ($trans) {
-                        return $trans->get($key, $replace, $locale);
-                    }
-                );
-        $this->mockTrans = $builder->build();
-        parent::__construct($name, $data, $dataName);
-    }
-
     public function test_successfullyOfEmpty()
     {
         $result = (new JoinedArray)->passes('field', '');
@@ -63,9 +36,6 @@ class JoinedArrayTest extends TestCase
 
     public function test_failedWithMin()
     {
-        // ===== trans mock ENABLED! =====
-        $this->mockTrans->enable();
-
         $rule = (new JoinedArray(null, [
             'separator' => '#',
             'min' => 3,

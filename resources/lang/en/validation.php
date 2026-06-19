@@ -23,4 +23,7 @@ return [
     'zenkaku-length' => 'The :attribute must be full-width characters and exactly :length characters.',
     'zenkaku-min' => 'The :attribute must be full-width characters and at least :min characters.',
     'zenkaku-max' => 'The :attribute must be full-width characters and at most :max characters.',
+    'charbyte-length' => 'The :attribute must be characters and exactly :length bytes.',
+    'charbyte-min' => 'The :attribute must be characters and at least :min bytes.',
+    'charbyte-max' => 'The :attribute must be characters and at most :max bytes.',
 ];

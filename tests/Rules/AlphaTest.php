@@ -2,7 +2,6 @@
 
 namespace Shimoning\Tests\Rules;
 
-use PHPUnit\Framework\TestCase;
 use Shimoning\LaravelUtilities\Rules\Alpha;
 
 class AlphaTest extends TestCase

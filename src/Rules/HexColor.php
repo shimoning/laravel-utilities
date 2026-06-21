@@ -33,7 +33,7 @@ class HexColor implements Rule
     public $allowShort = true;
 
     /**
-     * @param array|null
+     * @param array|null $options
      * @return void
      */
     public function __construct($options = null)

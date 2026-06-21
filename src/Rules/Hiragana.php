@@ -21,7 +21,7 @@ class Hiragana implements Rule
     public $allowMultiline = false;
 
     /**
-     * @param array|null
+     * @param array|null $options
      * @return void
      */
     public function __construct($options = null)

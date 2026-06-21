@@ -50,6 +50,7 @@ class JoinedArray implements Rule
     /**
       * @param array|string|null $rule
       * @param array|null $options
+      * @return void
       */
     public function __construct($rule = null, $options = null)
     {

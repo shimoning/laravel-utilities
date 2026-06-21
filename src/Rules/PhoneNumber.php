@@ -29,7 +29,7 @@ class PhoneNumber implements Rule
     public $hyphenIgnored = false;
 
     /**
-     * @param array|null
+     * @param array|null $options
      * @return void
      */
     public function __construct($options = null)

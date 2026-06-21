@@ -53,7 +53,7 @@ class Zenkaku implements Rule
     protected $customMessage = null;
 
     /**
-     * @param array|null
+     * @param array|null $options
      * @return void
      */
     public function __construct($options = null)
@@ -86,7 +86,6 @@ class Zenkaku implements Rule
      */
     public function passes($attribute, $value)
     {
-        //mb_strlen
         $isZenkaku = preg_match(
             '/\A([^\x01-\x7E\xA1-\xDF]' . ($this->withHalfSpace ? '|\s' : '') . ')+' . ($this->allowMultiline ? '\Z' : '\z') . '/u',
             $value
